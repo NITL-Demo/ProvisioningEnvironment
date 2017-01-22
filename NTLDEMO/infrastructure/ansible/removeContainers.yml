@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: remove containers
+      shell: docker rm -f $(docker ps -q)
+
+    
+

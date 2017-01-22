@@ -1,0 +1,55 @@
+---
+## This playbook deploys the whole application stack in this site.  
+
+## Create Docker Containers 
+- hosts: localhost
+  connection: local
+  roles:
+##    - { role: dbstart-container, host_name: db1, image_name: dbimage, container_name: db1, dockerfile: mysql/Dockerfile }
+##    - { role: dbstart-container, host_name: db2, image_name: dbimage, container_name: db2, dockerfile: mysql/Dockerfile }
+    - { role: start-container, host_name: web2, image_name: tomcatimage, container_name: web2, dockerfile: tomcat/Dockerfile }
+    - { role: start-container, host_name: web3, image_name: tomcatimage, container_name: web3, dockerfile: tomcat/Dockerfile }
+    - { role: start-container, host_name: web4, image_name: tomcatimage, container_name: web4, dockerfile: tomcat/Dockerfile }
+    - { role: start-container, host_name: lb, image_name: haproxyimage, container_name: lb, dockerfile: haproxy/Dockerfile }
+##    - { role: start-container, host_name: db3, image_name: mongodbimage, container_name: db3, dockerfile: mongodb/Dockerfile }
+    
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: copy files
+      command: docker cp /tmp/productlist.war web2:/usr/local/tomcat/webapps
+
+    - name: copy files
+      command: docker cp /tmp/productlist.war web3:/usr/local/tomcat/webapps
+
+    - name: copy files
+      command: docker cp /tmp/productlist.war web4:/usr/local/tomcat/webapps
+
+- hosts: web2
+  connection: docker
+  roles:
+    - { role: web, host_name: web2, image_name: tomcatimage, container_name: web2 , war_name: productlist.war}
+
+- hosts: web3
+  connection: docker
+  roles:
+    - { role: web, host_name: web3, image_name: tomcatimage, container_name: web3 , war_name: productlist.war}
+
+- hosts: web4
+  connection: docker
+  roles:
+    - { role: web, host_name: web4, image_name: tomcatimage, container_name: web4 , war_name: productlist.war}
+
+
+- hosts: lb
+  connection: docker
+  roles:
+    - haproxy
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+---
+# This role will install MySQL and create db user and give permissions.
+- name: Create Application Database
+  mysql_db: name=capsule state=present
+
+- name: Create Application DB User
+  mysql_user: name=root password=runa priv=*.*:ALL host='%' state=present

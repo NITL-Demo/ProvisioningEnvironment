@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: localhost
+  tasks:
+    - name: create database
+      shell: cat ~/ansible-provision-docker/NTLDEMO/infrastructure/dbsamples/capsule-export.sql | docker exec -i nitldb /usr/bin/mysql -u root --password=runa 
+
+  
+ 
+
+
+   
+

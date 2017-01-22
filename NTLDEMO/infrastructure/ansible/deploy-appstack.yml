@@ -1,0 +1,28 @@
+---
+## This playbook deploys the whole application stack in this site.  
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: copy files
+      command: docker cp /root/artifacts/devcapsule-spring-1.0.war nitlweb1:/usr/local/tomcat/webapps
+
+    - name: copy files
+      command: docker cp /root/artifacts/devcapsule-spring-1.0.war nitlweb2:/usr/local/tomcat/webapps
+
+- hosts: webservers
+  connection: docker
+  roles:
+    - web
+
+
+- hosts: lbservers
+  connection: docker
+  roles:
+    - haproxy
+
+
+
+
+
+
+

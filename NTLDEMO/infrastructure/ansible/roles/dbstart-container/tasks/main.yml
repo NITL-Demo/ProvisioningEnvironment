@@ -1,0 +1,15 @@
+- name: Create container
+  docker_image:
+    name: "{{ image_name }}"
+    path: "{{ playbook_dir }}/.."
+    dockerfile: "{{ dockerfile }}"
+    state: build
+
+- name: Start container
+  command: docker run --name {{ container_name }} -e MYSQL_ROOT_PASSWORD=runa -d {{ image_name }}
+
+
+# dynamically update inventory to make it available down the playbook
+- name: Register container
+  add_host: 
+    name: "{{ host_name }}"

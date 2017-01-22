@@ -1,0 +1,11 @@
+[webservers]
+nitlweb1
+nitlweb2
+
+[dbservers]
+nitldb
+
+[lbservers]
+nitllb
+
+

@@ -1,0 +1,23 @@
+---
+## This playbook deploys the whole application stack in this site.  
+
+## Create Docker Containers 
+- hosts: localhost
+  connection: local
+  roles:
+    - { role: dbstart-container, host_name: nitldb, image_name: dbimage, container_name: nitldb, dockerfile: dockers/mysql/Dockerfile }
+    - { role: start-container, host_name: nitlweb1, image_name: tomcatimage, container_name: nitlweb1, dockerfile: dockers/tomcat/Dockerfile }
+    - { role: start-container, host_name: nitlweb2, image_name: tomcatimage, container_name: nitlweb2, dockerfile: dockers/tomcat/Dockerfile }
+    - { role: start-container, host_name: nitllb, image_name: nitllbimage, container_name: nitllb, dockerfile: dockers/haproxy/Dockerfile }
+
+
+
+      
+
+    
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+---
+- name: Start Tomcat Server
+  command: nohup /usr/local/tomcat/bin/startup.sh
+
+
