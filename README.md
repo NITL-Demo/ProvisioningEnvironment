@@ -3,9 +3,15 @@
 
 root@vagrant:~/ansible-provision-docker/NTLDEMO/infrastructure# 
 
-./provision.sh
-ansible-playbook -i ansible/hosts ansible/createDatabase.yml
-./deploy-release.sh 
+1) ./provision.sh
 
-docker ps -a
-docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
+
+2) ansible-playbook -i ansible/hosts ansible/createDatabase.yml
+
+3) ./deploy-release.sh 
+
+
+4) docker ps -a
+
+
+5) docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
